@@ -23,7 +23,7 @@ You have been warned. Keep your backups. *This code will eat kittens.*
 Then look at the generated ouptut and edit your `CustomConfig.fs` to make output match your expectations.  
 Mostly you can ignore `Skipping ...` reports, as dotnet core will automatically include packages that are referenced by other packages.
 
-When ready, just run the tool with `patch` flag and it will atomatically inplace convert all `.csproj` files and delete all `package.json` files.
+When ready, just run the tool with `patch` flag and it will rewrite all `.csproj` files and delete all `packages.config` files.
 
     dotnet run patch <path-to-solution-file> <path-to-nuget-packages-for-that-project>
 
