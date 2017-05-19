@@ -21,7 +21,7 @@ You have been warned. Keep your backups. *This code will eat kittens.*
     dotnet run analyze <path-to-solution-file> <path-to-nuget-packages-directory-for-that-project>
 
 Then look at the generated ouptut and edit your `CustomConfig.fs` to make output match your expectations.  
-Mostly you can ignore `Skipping ...` reports, as dotnet core will automatically include packages are referenced by other packages.
+Mostly you can ignore `Skipping ...` reports, as dotnet core will automatically include packages that are referenced by other packages.
 
 When ready, just run the tool with `patch` flag and it will atomatically inplace convert all `.csproj` files and delete all `package.json` files.
 
@@ -30,7 +30,7 @@ When ready, just run the tool with `patch` flag and it will atomatically inplace
 
 Before that it is wise to close Visual Studio and run your variant of `make clean`.
 
-After patching, first do a `dotnet restore <solution-file>` before starting Visual Studio. If you are using Resharper, it is advised disable it because it may eat all your CPU and IO when fiddling with the new code.
+After patching, first do a `dotnet restore <solution-file>` before starting Visual Studio. If you are using Resharper, it is advised to temporarily disable it because it may eat all your CPU and IO when fiddling with the new code.
 
 Things likely won't work perfectly. If some nuget references are missing or have wrong versions, then either
  - delete them completely (and add them back) in Visual Studio 
