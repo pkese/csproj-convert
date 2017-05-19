@@ -13,7 +13,7 @@ You have been warned. Keep your backups. *This code will eat kittens.*
 
 #### How
 
-    git clone <this-repository>
+    git clone <this-repository>             (or just download .zip)
 
     cd csproj-convert
 
