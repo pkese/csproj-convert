@@ -1,0 +1,11 @@
+
+bin/
+obj/
+packages/
+
+paket.lock
+
+Sample.*.xml
+
+.paket/
+.vscode/
