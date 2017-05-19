@@ -100,22 +100,12 @@ let defineCustomizations (projectFilePath: string) (projectName: string) :Custom
         if node.name = "Import"
         then 
             match node |> findAttr "Project" with
-                | Some str when str.StartsWith("$(MSBuildExtensionsPath)") -> Del
-                | Some str when str.StartsWith("$(MSBuildToolsPath)") -> Del
-                | Some str when str.StartsWith("$(MSBuildBinPath)") -> Del
-                | Some str when str.StartsWith("$(VSToolsPath)") -> Del
+                | Some str when str.StartsWith "$(MSBuildExtensionsPath)" -> Del
+                | Some str when str.StartsWith "$(MSBuildToolsPath)" -> Del
+                | Some str when str.StartsWith "$(MSBuildBinPath)" -> Del
+                | Some str when str.StartsWith "$(VSToolsPath)" -> Del
                 | Some otherStr -> Old node
                 | None -> Old node
-        else Old node
-
-    let filterGeneratedAssemplyInfos node =
-        let { name = name; text = text; attrs = attrs } = node
-        // <Compile Include="..\..\..\..\..\build\GeneratedAssemblyInfo.cs">
-        if name = "Compile"
-        then
-            match attrs with
-                | ["Include",path] when path.EndsWith @"build\GeneratedAssemblyInfo.cs" -> Del
-                | _ -> Old node // all other cases -> leave unchanged (Old) node
         else Old node
 
     let filterDefaults node =
@@ -162,7 +152,6 @@ let defineCustomizations (projectFilePath: string) (projectName: string) :Custom
             [
                 setTargetFrameworkVersion
                 customNodeFilters
-                filterGeneratedAssemplyInfos
                 aBitMoreComplexNodeFilters
                 filterDefaults
                 filterProjectImports

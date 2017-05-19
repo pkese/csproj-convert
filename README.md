@@ -1,7 +1,7 @@
 
 #### What
 
-This project will automatically patch old style .csproj files into dotnet core compatible ones.
+This project will automatically convert old style .csproj files into dotnet core compatible ones.
 
 It is based primarily on the following posts:  
 http://www.natemcmaster.com/blog/2017/03/09/vs2015-to-vs2017-upgrade/ (read this!)  
@@ -15,7 +15,7 @@ You have been warned. Keep your backups. *This code will eat kittens.*
 
     git clone <this-repository>
 
-    cd CsprojConverter
+    cd csproj-convert
 
     dotnet restore
 
@@ -24,14 +24,14 @@ You have been warned. Keep your backups. *This code will eat kittens.*
 Then look at the generated ouptut and edit your `CustomConfig.fs` to make output match your expectations.  
 Mostly you can ignore `Skipping ...` reports, as dotnet core will automatically include packages that are referenced by other packages.
 
-When ready, just run the tool with `patch` flag and it will rewrite all `.csproj` files and delete all `packages.config` files.
+When ready, just run the tool with `convert` flag and it will rewrite all `.csproj` files and delete all `packages.config` files.
 
-    dotnet run patch <path-to-solution-file> <path-to-nuget-packages-for-that-project>
+    dotnet run convert <path-to-solution-file> <path-to-nuget-packages-for-that-project>
 
 
 Before that it is wise to close Visual Studio and run your variant of `make clean`.
 
-After patching, first do a `dotnet restore <solution-file>` before starting Visual Studio. If you are using Resharper, it is advised to temporarily disable it because it may eat all your CPU and IO when fiddling with the new code. It is also advisable to delete the .vs directory to make Visual Studio regenerate ints project cache.
+After conversion, first do a `dotnet restore <solution-file>` before starting Visual Studio. If you are using Resharper, it is advised to temporarily disable it because it may eat all your CPU and IO when fiddling with the new code. It is also advisable to delete the .vs directory to make Visual Studio regenerate its project cache.
 
 Things likely won't work perfectly. If some nuget references are missing or have wrong versions, then either
  - delete them completely (and add them back) in Visual Studio 
@@ -52,3 +52,5 @@ So I'm happily using [Visual Studio Code](https://code.visualstudio.com/) with [
 
 I may not respond very promptly to Bug reports, but I will pull in patch requests from time to time.  
 So just fork the code and commit your patches in to your own repo.
+
+Please star this project if you like it so I can get some feedback wheather it is of any use.

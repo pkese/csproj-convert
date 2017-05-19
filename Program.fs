@@ -221,7 +221,7 @@ let iterateOverProjectsInSolution solutionFile =
         |> Seq.map (fun prj -> prj.AbsolutePath)
 
 let usage = """
-    dotnet run {analyze|patch} pathToSolutionFile pathToNugetPackagesDir
+    dotnet run {analyze|convert} pathToSolutionFile pathToNugetPackagesDir
 """    
 
 type Error = string option
@@ -268,7 +268,7 @@ let main argv =
     let error = 
         match (Array.toList argv) with
             | ["analyze"; sln; pkgDir] -> handle sln pkgDir true
-            | ["patch";sln; pkgDir] -> handle sln pkgDir false
+            | ["convert";sln; pkgDir] -> handle sln pkgDir false
             | _ -> Some usage
 
     error |> function
