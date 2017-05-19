@@ -187,27 +187,26 @@ let convertCsproj (nugetPkgDir:string) (outStream:Stream) (prjFPath:string) =
 
     eprintfn "processing %s" prjFPath
 
-    loadCsprojFile prjFPath
-        |> fun rootNode ->
+    let rootNode = loadCsprojFile prjFPath
 
-            vs2015conversion <- isIt2015styleProject rootNode
+    vs2015conversion <- isIt2015styleProject rootNode
 
-            let result = convertNode rootNode
+    let result = convertNode rootNode
 
-            match result with
-                | New node -> 
-                    // write back to file (or stdout)
-                    storeCsprojFile outStream node |> ignore
+    match result with
+        | New node -> 
+            // write back to file (or stdout)
+            storeCsprojFile outStream node |> ignore
 
-                    eprintfn "project modified: %s" projectName
-                | Old _ ->
-                    eprintfn "no changes in: %s" projectName
-                | Del ->
-                    eprintfn "that's weird -- everything got cut off"
-                | Err err ->
-                    eprintfn "error in %s: %s" projectName err
+            eprintfn "project modified: %s" projectName
+        | Old _ ->
+            eprintfn "no changes in: %s" projectName
+        | Del ->
+            eprintfn "that's weird -- everything got cut off"
+        | Err err ->
+            eprintfn "error in %s: %s" projectName err
 
-            result // that's the conversion result
+    result // that's the conversion result
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -222,7 +221,7 @@ let iterateOverProjectsInSolution solutionFile =
         |> Seq.map (fun prj -> prj.AbsolutePath)
 
 let usage = """
-    {analyze|patch} pathToSolutionFile
+    dotnet run {analyze|patch} pathToSolutionFile pathToNugetPackagesDir
 """    
 
 type Error = string option
