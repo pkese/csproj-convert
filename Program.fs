@@ -124,6 +124,7 @@ let convertCsproj (nugetPkgDir:string) (outStream:Stream) (prjFPath:string) =
                         // OH HORROR - we'll just delete stuff we can't find on root level of package cache
                         // - old style projects were referencing too much stuff anyway
                         // - in case something is actually missing just add it back manually
+                        eprintfn "Skipping reference to %s (no matches)" package
                         Del 
                     | _,nug,_ -> 
                         New { name="PackageReference"; attrs=["Include",package; "Version",nug;]; text=""; children=[]; path=node.path }
